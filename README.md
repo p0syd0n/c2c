@@ -1,2 +1,2 @@
 # c2c
-c2c server to send commands to client
+Command and Control server that connects to a script on your target computer.
