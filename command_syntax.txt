@@ -1,0 +1,52 @@
+Please read this:
+The following is documentation. It is boring and wordy, but it explains how to write the commands. Note: 
+client software in the following context means the malware that you install on the victims machine.
+DO NOT DELETE THE go.txt FILE
+ATTENTION: IN THE COMMANDS, INSTEAD OF USING SPACES(" "), USE UPTICKS("`"!!! 
+EXAMPLE:
+command = b"""1 notscript 99s pip`install`requests"""
+upticks go inside of the commands, not in between of options.
+
+BASIC SYNTAX:
+command = b"""[repetition amount] [script/notscript] [execution type/custom subcommand] [OS command]"""
+
+the first option define how many times to repeat the command (what comes after) on the target machine. This is an integer. For example:
+command = b"""3 [script/notscript] [execution type/custom subcommand] [OS command]"""
+
+The second option defines if the command will execute a script or a subcommand. The script to be executed would be script.py on the server side. If you choose this option, make the second item o the command "script". For example:
+command = b"""3 [script] [execution type/custom subcommand] [OS command]"""
+At this point, the other commands are unnecessary sinse you have chosen to use a script. You could exclude them wholly, or just type filler text. Please not that for the script to be able to run on the target machine, the target machine will need to have python installed.
+
+Before reading this next section, notice that it assumes that your second option is "notscript", seeing as when the target machine reads that the second option is "script", it will stop reading and go execute the script, then halt.
+The third option defines either the custom command you would like to run (hard coded into the client software), or just a shell command. There are not many custom commands currently:
+- screenshot
+The syntax for a custom command is:
+command = b"""1 notscript screenshot [OS command]"""
+
+where the command will be executed once, it will not be a script, it will be the custom screenshot command. Please note that if you choose to use a custom command, the option after will not matter.
+If you choose to not use a custom command:
+The fourth command will now be a shell command for the target machine.
+This means that the third option will instead signify the mode of operation for the shell command. The modes of operation are:
+- 99o
+  returns the supposed output of the following shell command, without actually running the command. Example:
+  command = b"""1 notscript 99o ls"""
+  will return the output of the "ls" command from the target machine to your console.
+- 99s
+  executes silently on the target computer, returning all output to you. For example:
+  command = b"""1 notscript 99s pip`install`requests"""
+  will run the "pip install requests" command on the target machine, and instead of printing the output to the target machine, it will return all output to your console.
+
+- 99n
+  executes normally on the target computer, all output is not affected in any way. For example:
+  command = b"""1 notscript 99n pip`install`requests"""
+  will run the "pip install requests" command on the target machine, and will print the ouput to the target machines console.
+Please note that when I say anything along the lines of "output will be returned to target machine", it will be printed out to the python window console (if you are running this as a python). If you run the client software as an executable with console turned off, I am not sure what will happen, as I have not tested that far.
+
+
+EXAMPLES:
+
+command = b"""1 script lorem ipsum"""
+the command will execute the script.py file once.
+  
+command = b"""1 notscript 99s touch`file.txt"""
+the command will create a file called file.txt in the current working directory of the client software.
